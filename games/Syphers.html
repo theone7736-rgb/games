@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cipher Tool</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f2f2f2;
+padding:40px;
+}
+
+textarea{
+width:100%;
+height:120px;
+font-size:16px;
+margin-bottom:10px;
+}
+
+button{
+padding:10px 20px;
+font-size:16px;
+margin-right:10px;
+cursor:pointer;
+}
+
+select{
+padding:8px;
+font-size:16px;
+margin-bottom:10px;
+}
+
+#output{
+margin-top:20px;
+font-weight:bold;
+font-size:18px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Cipher Tool</h2>
+
+<select id="cipherSelect"></select>
+
+<textarea id="input" placeholder="Type text here..."></textarea>
+
+<br>
+
+<button onclick="encode()">Encode</button> <button onclick="decode()">Decode</button>
+
+<div id="output"></div>
+
+<script>
+
+/* =========================
+   EASY EDIT CIPHER SECTION
+   ========================= */
+
+const ciphers = {
+
+AccentCipher: {
+a:"ā", b:"ƀ", c:"ç", d:"đ", e:"ę", f:"ƒ", g:"ğ", h:"h",
+i:"į", j:"ĵ", k:"ķ", l:"ĺ", m:"m", n:"ñ", o:"ø",
+p:"p", q:"q", r:"r", s:"š", t:"7", u:"µ",
+v:"v", w:"2", x:"x", y:"ÿ", z:"ž"
+},
+
+letter: {
+a:"4", e:"3", i:"1", o:"0", s:"5", t:"7"
+},
+
+emoji: {
+a:"😀", b:"🥺", c:"😕", d:"😢", e:"🙂", f:"😟", g:"🤣", h:"😂",
+i:"😅", j:"🥹", k:"💩", l:"👻", m:"💀", n:"☠️", o:"👿",
+p:"👹", q:"👺", r:"🤡", s:"🤕", t:"🤑", u:"🤠",
+v:"😈", w:"🫥", x:"🫨", y:"🫡", z:""
+},
+};
+
+/* =========================
+   DO NOT NEED TO EDIT BELOW
+   ========================= */
+
+const select = document.getElementById("cipherSelect");
+
+for (let name in ciphers){
+let option = document.createElement("option");
+option.value = name;
+option.textContent = name;
+select.appendChild(option);
+}
+
+function encode(){
+
+let cipherName = select.value;
+let map = ciphers[cipherName];
+let text = document.getElementById("input").value.toLowerCase();
+let result = "";
+
+for (let char of text){
+result += map[char] || char;
+}
+
+document.getElementById("output").innerText = result;
+
+}
+
+function decode(){
+
+let cipherName = select.value;
+let map = ciphers[cipherName];
+
+let reverse = {};
+for (let key in map){
+reverse[map[key]] = key;
+}
+
+let text = document.getElementById("input").value;
+let result = "";
+
+for (let char of text){
+result += reverse[char] || char;
+}
+
+document.getElementById("output").innerText = result;
+
+}
+
+</script>
+
+</body>
+</html>
