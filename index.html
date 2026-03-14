@@ -84,7 +84,7 @@ let loaded = false;
 // Load articles safely
 async function loadArticles() {
   try {
-    const snap = await getDocs(collection(db, "articles"));
+    const snap = await getDocs(collection(db, "games"));
     pages = snap.docs.map(doc => doc.data());
     loaded = true;
     console.log("Articles loaded:", pages.length);
@@ -135,7 +135,7 @@ window.handleSearch = function () {
     div.textContent = p.title;
     div.onclick = () => {
       window.location.href =
-        "https://learn.edodnan.com.au/search/" + p.slug + ".html";
+        "https://games.edodnan.com.au/search/" + p.slug + ".html";
     };
     result.appendChild(div);
   });
